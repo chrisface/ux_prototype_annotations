@@ -16,7 +16,7 @@ Annotations = (function(){
   };
 
   var loadCssDependencies = function(){
-    // loadCss('something.csss');
+    loadCss('stylesheets/style.css');
   };
 
   var getProjectName = function(){

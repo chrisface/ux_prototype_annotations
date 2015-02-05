@@ -7,8 +7,9 @@ var Annotation = mongoose.model('Annotation');
 // Create a Project
 router.post('/', function(req, res, next) {
 
+  console.log(req);
   var project = new Project(req.body);
-
+  
   project.save(function(error, project){
     if (error){
       console.log("Error creating project: " + error);
@@ -18,7 +19,7 @@ router.post('/', function(req, res, next) {
       });
     }
     else{
-      console.log("created the project: " + req.param("name"));
+      console.log("created the project: " + req.body.name);
       res.status(200).json({
         success: true,
         data: project

@@ -15,13 +15,36 @@ Annotations = (function(){
     $("head").append(link);
   };
 
-  var loadDependencies = function(){
-    loadJavascript('https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js');
-    // loadCss('https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js');
+  var loadCssDependencies = function(){
+    // loadCss('something.csss');
   };
 
   var getProjectName = function(){
     return "cute-cat";
+  };
+
+  var getTemplate = function(name){
+    $.ajax({
+      url : 'templates/' + name + '.tpl.html',
+      success : function (data) {
+        if (Handlebars.templates === undefined) {
+          Handlebars.templates = {};
+        }
+        Handlebars.templates[name] = Handlebars.compile(data);
+      },
+      dataType: "text",
+      async : false
+    });
+  };
+
+  var wrapContent = function(){
+
+
+    var contentHtml = $('body').html();
+    var wrappedHtml = Handlebars.templates.wrapper({content: contentHtml});
+
+    $('body').empty();
+    $('body').html(wrappedHtml);
   };
 
   var findOrCreateProject = function(){
@@ -34,8 +57,17 @@ Annotations = (function(){
 
 
   var init = function(){
-    loadDependencies();
-    console.log("Initialized Annotations Plugin");
+    $.when(
+      $.getScript( "https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js" ),
+      $.Deferred(function( deferred ){
+          $( deferred.resolve );
+      })
+    ).done(function(){
+      loadCssDependencies();
+      getTemplate('wrapper');
+      wrapContent();
+      console.log("Initialized Annotations Plugin");
+    });
   };
 
   return {

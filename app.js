@@ -8,9 +8,11 @@ var mongoose = require('mongoose');
 
 // Load models
 require('./models/project.js');
+require('./models/annotation.js');
 
 // Load routes
 var projects = require('./routes/projects');
+var annotations = require('./routes/annotations');
 
 var app = express();
 
@@ -30,6 +32,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/projects', projects);
+app.use('/annotations', annotations);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

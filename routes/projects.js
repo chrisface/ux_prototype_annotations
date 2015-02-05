@@ -6,9 +6,7 @@ var Project = mongoose.model('Project');
 /* GET home page. */
 router.post('/', function(req, res, next) {
 
-  var project = new Project({
-    name: req.param("name")
-  });
+  var project = new Project(req.body);
 
   project.save(function(error, project){
     if (error){

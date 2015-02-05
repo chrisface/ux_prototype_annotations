@@ -27,8 +27,8 @@ router.post('/', function(req, res, next) {
   });
 });
 
-router.get('/:projectId', function(req, res, next){
-  Project.findById(req.param("projectId"), function(error, project){
+router.get('/:projectName', function(req, res, next){
+  Project.where({name: req.param("projectName")}).findOne(function(error, project){
     if(error){
       console.log("Error retreiving project: " + error);
       res.status(400).json({
@@ -36,15 +36,20 @@ router.get('/:projectId', function(req, res, next){
       });
     }
     else{
-      res.status(200).json(project);
+      if (project){
+        res.status(200).json(project);
+      }
+      else{
+        res.status(404).json({error: "Not Found"});
+      }
     }
   });
 });
 
 // Add an Annotation to Project
-router.post('/:projectId/annotations', function(req, res, next) {
+router.post('/:projectName/annotations', function(req, res, next) {
 
-  Project.findById(req.param("projectId"), function(error, project){
+  Project.where({name: req.param("projectName")}).findOne(function(error, project){
     if (error){
       console.log("Error creating annotation: " + error);
       res.status(400).json({

@@ -28,7 +28,7 @@ router.post('/', function(req, res, next) {
 });
 
 router.get('/:projectName', function(req, res, next){
-  Project.where({name: req.param("projectName")}).findOne(function(error, project){
+  Project.findOne({name: req.param("projectName")}).populate("annotations").exec(function(error, project){
     if(error){
       console.log("Error retreiving project: " + error);
       res.status(400).json({

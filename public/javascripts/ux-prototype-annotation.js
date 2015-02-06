@@ -61,6 +61,8 @@ Annotations = (function(){
   var init = function(){
     $.when(
       $.getScript( "https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js" ),
+      $.getScript( "https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js" ),
+      $.getScript( "http://localhost:3000/javascripts/expanding.js" ),
       $.Deferred(function( deferred ){
           $( deferred.resolve );
       })

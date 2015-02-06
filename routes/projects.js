@@ -9,7 +9,7 @@ router.post('/', function(req, res, next) {
 
   console.log(req);
   var project = new Project(req.body);
-  
+
   project.save(function(error, project){
     if (error){
       console.log("Error creating project: " + error);
@@ -58,6 +58,8 @@ router.post('/:projectName/annotations', function(req, res, next) {
       });
     }
     else{
+      console.log(req.body);
+      console.log(typeof req.body.title);
       var annotation = new Annotation(req.body);
 
       annotation.save(function(error, annotation){

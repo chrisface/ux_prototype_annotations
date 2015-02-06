@@ -99,25 +99,28 @@ Annotations = (function(){
 
   var addAnnotations = function(annotations){
     $.each(annotations, function(index, annotation){
-      createAnnotation(annotation.position.x, annotation.position.y, annotation.title, annotation.description);
+      createAnnotation(annotation);
     });
   };
 
-  var createAnnotation = function(x, y, title, description){
+  var createAnnotation = function(annotationData){
     this.annotations = this.annotations || [];
 
     var newID = this.annotations.length + 1;
     var blob = $('<figure id="'+newID+'">#'+newID+'</figure>').css({
-      'top': y-25,
-      'left': x-25
+      'top': annotationData.position.y-25,
+      'left': annotationData.position.x-25
     });
 
-    var annotation = $('<figcaption class="annotation"><h3 class="clearfix"><span class="annotation-no">#'+newID+'</span><input class="annotation-title" type="text" placeholder="Annotation title" value="'+title+'"></h3><textarea placeholder="Annotation details">'+description+'</textarea><button class="delete-annotation">Delete annotation</button></figcaption>');
+    var annotation = $('<figcaption class="annotation"><h3 class="clearfix"><span class="annotation-no">#'+newID+'</span><input class="annotation-title" type="text" placeholder="Annotation title" value="'+annotationData.title+'"></h3><textarea placeholder="Annotation details">'+annotationData.description+'</textarea><button class="delete-annotation">Delete annotation</button></figcaption>');
     $('.to-annotate').prepend(blob);
     $('.annotation-list').append(annotation);
-    annotation.draggable();
+    blob.draggable();
 
     this.annotations.push(annotations);
+    if (!annotationData._id){
+      saveAnnotation(annotationData);
+    }
   };
 
   var addAnnotationClickEvent = function(){
@@ -129,7 +132,14 @@ Annotations = (function(){
         var offset = $(this).offset();
         var x = (e.pageX - offset.left);
         var y = (e.pageY - offset.top);
-        createAnnotation(x, y);
+        createAnnotation({
+          "title": "",
+          "description": "",
+          "position": {
+            "x": x,
+            "y": y
+          }
+        });
       }
       return false;
     });
@@ -139,6 +149,15 @@ Annotations = (function(){
     addDeleteEvent();
     addToggleBlobsEvent();
     addAnnotationClickEvent();
+  };
+
+  var saveAnnotation = function(data){
+    $.ajax({
+      type: 'post',
+      url: 'http://localhost:3000/projects/' + getProjectName() + '/annotations',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
   };
 
   var findOrCreateProject = function(callback){

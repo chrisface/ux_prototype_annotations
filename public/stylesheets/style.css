@@ -6,6 +6,7 @@ html.annotation-tool-html, body.annotation-tool-body {
   height: 100%; }
 
 body.annotation-tool-body {
+  margin: 0;
   background: #fcfcfc;
   color: #737373;
   font-family: sans-serif; }
@@ -91,7 +92,8 @@ aside.annotation-tool-aside {
       border: 1px solid #d75361;
       color: #d75361;
       background: #fff;
-      margin-top: 16px; }
+      margin-top: 16px;
+	  font-size: 14px; }
       aside.annotation-tool-aside figcaption.annotation button:hover {
         border-color: #F0828E;
         color: #F0828E; }

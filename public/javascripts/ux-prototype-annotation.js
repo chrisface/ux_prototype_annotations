@@ -16,7 +16,7 @@ Annotations = (function(){
   };
 
   var loadCssDependencies = function(){
-    loadCss('stylesheets/style.css');
+    loadCss('http://localhost:3000/stylesheets/style.css');
   };
 
   var getProjectName = function(){
@@ -25,7 +25,7 @@ Annotations = (function(){
 
   var getTemplate = function(name){
     $.ajax({
-      url : 'templates/' + name + '.tpl.html',
+      url : 'http://localhost:3000/templates/' + name + '.tpl.html',
       success : function (data) {
         if (Handlebars.templates === undefined) {
           Handlebars.templates = {};
@@ -45,6 +45,8 @@ Annotations = (function(){
 
     $('body').empty();
     $('body').html(wrappedHtml);
+    $('body').addClass('annotation-tool-body');
+    $('html').addClass('annotation-tool-html');
   };
 
   var findOrCreateProject = function(){

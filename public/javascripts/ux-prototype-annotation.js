@@ -97,26 +97,27 @@ Annotations = (function(){
     });
   };
 
-  var createAnnotation = function(scope, e){
-    var offset = $(scope).offset();
-    var relativeX = (e.pageX - offset.left);
-    var relativeY = (e.pageY - offset.top);
+  var addAnnotations = function(annotations){
+    $.each(annotations, function(index, annotation){
+      createAnnotation(annotation.position.x, annotation.position.y, annotation.title, annotation.description);
+    });
+  };
 
-    // alert("X: " + relativeX + "  Y: " + relativeY);
-    var lastID = $('figure:eq(-1)').attr('id');
-    var newID = ++lastID;
+  var createAnnotation = function(x, y, title, description){
+    this.annotations = this.annotations || [];
 
+    var newID = this.annotations.length + 1;
     var blob = $('<figure id="'+newID+'">#'+newID+'</figure>').css({
-      'top': relativeY-25,
-      'left': relativeX-25
+      'top': y-25,
+      'left': x-25
     });
 
-    var annotation = $('<figcaption class="annotation"><h3 class="clearfix"><span class="annotation-no">#'+newID+'</span><input class="annotation-title" type="text" placeholder="Annotation title"></h3><textarea placeholder="Annotation details"></textarea><button class="delete-annotation">Delete annotation</button></figcaption>');
-    $('.to-annotate img').before(blob);
+    var annotation = $('<figcaption class="annotation"><h3 class="clearfix"><span class="annotation-no">#'+newID+'</span><input class="annotation-title" type="text" placeholder="Annotation title" value="'+title+'"></h3><textarea placeholder="Annotation details">'+description+'</textarea><button class="delete-annotation">Delete annotation</button></figcaption>');
+    $('.to-annotate').prepend(blob);
     $('.annotation-list').append(annotation);
+    annotation.draggable();
 
-    $('.annotation textarea').expanding();
-    $('figure').draggable();
+    this.annotations.push(annotations);
   };
 
   var addAnnotationClickEvent = function(){
@@ -125,7 +126,10 @@ Annotations = (function(){
         highlightAnnotation(e.target);
       }
       else{
-        createAnnotation(this, e);
+        var offset = $(this).offset();
+        var x = (e.pageX - offset.left);
+        var y = (e.pageY - offset.top);
+        createAnnotation(x, y);
       }
       return false;
     });
@@ -151,6 +155,7 @@ Annotations = (function(){
 
       findOrCreateProject(function(data, status){
         console.log(data);
+        addAnnotations(data.annotations);
         enablePlugins();
         addEvents();
       });
@@ -160,10 +165,15 @@ Annotations = (function(){
   };
 
   return {
-    init: init
+    init: init,
+    isEnabled: function(){
+      return window.location.href.split('?').pop().indexOf('annotate') != -1;
+    }
   };
 })();
 
 $(document).ready(function(){
-  Annotations.init();
+  if (Annotations.isEnabled()){
+    Annotations.init();
+  }
 });

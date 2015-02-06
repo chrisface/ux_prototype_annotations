@@ -1,0 +1,241 @@
+* {
+  /* So 100% means 100% */
+  box-sizing: border-box;
+}
+
+html.annotation-tool-html, body.annotation-tool-body {
+  height: 100%;
+}
+
+body.annotation-tool-body {
+  background: #fcfcfc;
+  color: #737373;
+  font-family: sans-serif;
+  margin: 0;
+}
+
+div.annotation-tool-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+aside.annotation-tool-aside {
+  background: #f5f2f0;
+  z-index: 100;
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 320px;
+  height: 100%;
+  border-right: solid 2px rgba(51, 51, 51, 0.12);
+
+  h2 {
+    padding: 16px;
+    margin: 0;
+    border-bottom: solid 2px rgba(51, 51, 51, 0.12);
+    background: #fff;
+
+    a {
+      color: #3A9FAA;
+      font-size: 16px;
+      font-weight: normal;
+      display: inline-block;
+      text-align: right;
+
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  div.annotation-list {
+    overflow-y: scroll;
+    height: calc(100% - 58px);
+  }
+
+  figcaption.annotation {
+    padding: 16px;
+    background: #f5f2f0;
+    border-bottom: solid 2px rgba(51, 51, 51, 0.12);
+
+    &:last-child {
+      -webkit-box-shadow: 0px 5px 5px 0px rgba(97,97,97,0.5);
+         -moz-box-shadow: 0px 5px 5px 0px rgba(97,97,97,0.5);
+              box-shadow: 0px 2px 5px 0px rgba(97,97,97,0.5)!important;
+    }
+
+    &.selected {
+      background: rgba(51, 51, 51, 0.12)!important;
+    }
+
+    h3 {
+      padding: 0 0 16px;
+      margin: 0;
+      font-size: 16px;
+
+      span {
+        margin-right: 8px;
+        float: left;
+        display: inline-block;
+        padding-top: 12px;
+      }
+
+      input {
+        width: 260px;
+        height: 38px;
+        float: left;
+        padding: 0 8px;
+        color: #737373!important;
+        font-size: 14px;
+        border: 1px solid #737373;
+
+      -webkit-border-radius: 2px;
+         -moz-border-radius: 2px;
+              border-radius: 2px;
+
+        -webkit-box-shadow: inset 3px 3px 30px -16px rgba(67,67,67,1);
+           -moz-box-shadow: inset 3px 3px 30px -16px rgba(67,67,67,1);
+                box-shadow: inset 3px 3px 30px -16px rgba(67,67,67,1);
+      }
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      font-size: 14px;
+      color: #737373!important;
+      padding: 8px;
+
+      -webkit-border-radius: 2px;
+         -moz-border-radius: 2px;
+              border-radius: 2px;
+
+        -webkit-box-shadow: inset 3px 3px 30px -16px rgba(67,67,67,1);
+           -moz-box-shadow: inset 3px 3px 30px -16px rgba(67,67,67,1);
+                box-shadow: inset 3px 3px 30px -16px rgba(67,67,67,1);
+    }
+
+    button {
+      width: 100%;
+      height: 38px;
+      border: 1px solid #d75361;
+      color: #d75361;
+      background: #fff;
+      margin-top: 16px;
+      font-size: 14px;
+
+      &:hover {
+        border-color: #F0828E;
+        color: #F0828E;
+      }
+
+      &:active {
+        -webkit-box-shadow: inset 3px 3px 30px -16px rgba(67,67,67,1);
+           -moz-box-shadow: inset 3px 3px 30px -16px rgba(67,67,67,1);
+                box-shadow: inset 3px 3px 30px -16px rgba(67,67,67,1);
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+section.annotation-tool-section {
+  position: absolute;
+  top:0;
+  left: 320px;
+
+  width: calc(100% - 320px);
+  height: 100%;
+
+  .toggle-nav {
+
+  }
+
+  h1 {
+    z-index: 100!important;
+    padding: 16px;
+    margin: 0;
+    font-size: 24px;
+    border-bottom: solid 2px rgba(51, 51, 51, 0.12);
+    z-index: 100;
+    background: #fff;
+
+    .page-title {
+      font-weight: normal;
+    }
+  }
+
+  img {
+    display: block;
+  }
+
+  div.prototype-container {
+    padding: 16px;
+    overflow-y: scroll;
+    width: 100%;
+    height: calc(100% - 58px);
+    -webkit-box-shadow: inset 0px 0px 5px 2px rgba(67,67,67,0.3)!important;
+       -moz-box-shadow: inset 0px 0px 5px 2px rgba(67,67,67,0.3)!important;
+            box-shadow: inset 0px 0px 5px 2px rgba(67,67,67,0.3)!important;
+
+    div.to-annotate {
+      position:relative;
+      display: inline-block;
+
+      figure {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        color: rgba(255,255,255,0.8);
+        text-align: center;
+        padding: 18px 0 0;
+        margin: 0;
+
+        background: rgb(234,35,35); /* Old browsers */
+        background: -moz-radial-gradient(center, ellipse cover,  rgba(234,35,35,1) 0%, rgba(234,35,35,1) 39%, rgba(234,35,35,1) 39%, rgba(255,255,255,0) 71%, rgba(254,255,255,0) 100%); /* FF3.6+ */
+        background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(234,35,35,1)), color-stop(39%,rgba(234,35,35,1)), color-stop(39%,rgba(234,35,35,1)), color-stop(71%,rgba(255,255,255,0)), color-stop(100%,rgba(254,255,255,0))); /* Chrome,Safari4+ */
+        background: -webkit-radial-gradient(center, ellipse cover,  rgba(234,35,35,1) 0%,rgba(234,35,35,1) 39%,rgba(234,35,35,1) 39%,rgba(255,255,255,0) 71%,rgba(254,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-radial-gradient(center, ellipse cover,  rgba(234,35,35,1) 0%,rgba(234,35,35,1) 39%,rgba(234,35,35,1) 39%,rgba(255,255,255,0) 71%,rgba(254,255,255,0) 100%); /* Opera 12+ */
+        background: -ms-radial-gradient(center, ellipse cover,  rgba(234,35,35,1) 0%,rgba(234,35,35,1) 39%,rgba(234,35,35,1) 39%,rgba(255,255,255,0) 71%,rgba(254,255,255,0) 100%); /* IE10+ */
+        background: radial-gradient(ellipse at center,  rgba(234,35,35,1) 0%,rgba(234,35,35,1) 39%,rgba(234,35,35,1) 39%,rgba(255,255,255,0) 71%,rgba(254,255,255,0) 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea2323', endColorstr='#feffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+        &:hover {
+          cursor: move;
+        }
+      }
+
+      figure:nth-child(1) {
+        top: 30px;
+        left: 488px;
+      }
+
+      figure:nth-child(2) {
+        top: 400px;
+        left: 608px;
+      }
+
+      figure:nth-child(3) {
+        top: 954px;
+        left: 568px;
+      }
+    }
+  }
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    zoom: 1; /* For IE 6/7 (trigger hasLayout) */
+}

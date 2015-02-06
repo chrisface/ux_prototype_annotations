@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var sassMiddleware = require('node-sass-middleware');
 
 // Load models
 require('./models/project.js');
@@ -28,6 +29,15 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use('/stylesheets',
+    sassMiddleware({
+      src: __dirname + '/public/sass',
+      dest: __dirname + '/public/stylesheets',
+      debug: true,
+      outputStyle: 'expanded'
+  })
+);
 
 // Cross origin middleware
 app.use(function(req, res, next) {

@@ -188,13 +188,14 @@ section.annotation-tool-section {
       display: inline-block;
 
       figure {
-        position: absolute;
+        position: absolute !important;
         width: 50px;
         height: 50px;
         color: rgba(255,255,255,0.8);
         text-align: center;
         padding: 18px 0 0;
         margin: 0;
+        z-index: 100;
 
         background: rgb(234,35,35); /* Old browsers */
         background: -moz-radial-gradient(center, ellipse cover,  rgba(234,35,35,1) 0%, rgba(234,35,35,1) 39%, rgba(234,35,35,1) 39%, rgba(255,255,255,0) 71%, rgba(254,255,255,0) 100%); /* FF3.6+ */
